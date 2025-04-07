@@ -34,7 +34,7 @@ sealed class AuthScreen(val route: String) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthNavigation(
-    onAuthSuccess: () -> Unit
+    onAuthSuccess: (String?) -> Unit
 ) {
     val navController = rememberNavController()
     val viewModel: AuthViewModel = viewModel()
@@ -115,6 +115,7 @@ fun AuthNavigation(
             LaunchedEffect(authState) {
                 when (authState) {
                     is AuthState.Success -> {
+                        val role = (authState as AuthState.Success).role
                         scope.launch {
                             snackbarHostState.showSnackbar(
                                 message = if (navController.currentBackStackEntry?.destination?.route == AuthScreen.Register.route) {
@@ -126,7 +127,7 @@ fun AuthNavigation(
                         }
                         // Небольшая задержка, чтобы пользователь успел увидеть сообщение
                         kotlinx.coroutines.delay(1000)
-                        onAuthSuccess()
+                        onAuthSuccess(role)
                         viewModel.resetState()
                     }
                     is AuthState.Error -> {

@@ -35,8 +35,17 @@ class AuthViewModel : ViewModel() {
         _authState.value = AuthState.Loading
         viewModelScope.launch {
             try {
-                auth.signInWithEmailAndPassword(email, password).await()
-                _authState.value = AuthState.Success()
+                val authResult = auth.signInWithEmailAndPassword(email, password).await()
+                val user = authResult.user
+                
+                if (user != null) {
+                    // Получаем роль пользователя из Firestore
+                    val userDoc = db.collection("users").document(user.uid).get().await()
+                    val role = userDoc.getString("role") ?: "user"
+                    _authState.value = AuthState.Success(role)
+                } else {
+                    _authState.value = AuthState.Success()
+                }
             } catch (exception: Exception) {
                 val errorMessage = when (exception) {
                     is FirebaseAuthInvalidUserException,
