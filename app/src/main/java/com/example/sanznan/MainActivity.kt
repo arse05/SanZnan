@@ -17,7 +17,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavController
 import com.example.sanznan.ui.auth.AuthNavigation
 import com.example.sanznan.ui.auth.AuthViewModel
-import com.example.sanznan.ui.main.AdminMainMenuScreen
+import com.example.sanznan.ui.admin.AdminMainMenuScreen
+import com.example.sanznan.ui.main.AdminMainMenuScreen as AdminPanelScreen
 import com.example.sanznan.ui.main.MainMenuScreen
 import com.example.sanznan.ui.profile.ProfileScreen
 import com.example.sanznan.ui.services.ServicesScreen
@@ -61,12 +62,18 @@ class MainActivity : ComponentActivity() {
                         composable("main") {
                             if (userRole == "admin") {
                                 AdminMainMenuScreen(
+                                    onPersonalAccountClick = {
+                                        navController.navigate("profile")
+                                    },
                                     onChangeAccountClick = {
                                         isAuthenticated = false
                                         userRole = null
                                         navController.navigate("auth") {
                                             popUpTo("main") { inclusive = true }
                                         }
+                                    },
+                                    onAdminPanelClick = {
+                                        navController.navigate("admin_panel")
                                     }
                                 )
                             } else {
@@ -86,6 +93,18 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             }
+                        }
+
+                        composable("admin_panel") {
+                            AdminPanelScreen(
+                                onChangeAccountClick = {
+                                    isAuthenticated = false
+                                    userRole = null
+                                    navController.navigate("auth") {
+                                        popUpTo("main") { inclusive = true }
+                                    }
+                                }
+                            )
                         }
 
                         composable("profile") {

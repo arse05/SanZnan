@@ -205,7 +205,7 @@ fun LoginScreen(
                 )
             }
             
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             
             // Кнопка для быстрого входа (только для отладки)
             OutlinedButton(
@@ -218,6 +218,21 @@ fun LoginScreen(
                 )
             ) {
                 Text("Быстрый вход (для отладки)")
+            }
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            
+            // Кнопка для быстрого входа с указанными учетными данными
+            OutlinedButton(
+                onClick = { onLoginClick("asd@Gmail.com", "Q12345") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 32.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            ) {
+                Text("Войти как пользователь (asd@Gmail.com)")
             }
         }
     }

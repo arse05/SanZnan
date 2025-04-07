@@ -31,7 +31,7 @@ import com.example.sanznan.R
 @Composable
 fun AdminMainMenuScreen(
     onPersonalAccountClick: () -> Unit,
-    onServicesClick: () -> Unit,
+    onServicesClick: () -> Unit = {},
     onChangeAccountClick: () -> Unit,
     onAdminPanelClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -123,14 +123,6 @@ fun AdminMainMenuScreen(
                 description = "Управление профилем и настройками",
                 icon = Icons.Filled.AccountCircle,
                 onClick = onPersonalAccountClick
-            )
-
-            // Карточка "Услуги"
-            MenuCard(
-                title = "Услуги",
-                description = "Доступные услуги центра",
-                icon = Icons.Filled.Settings,
-                onClick = onServicesClick
             )
             
             // Карточка "Панель администратора"
@@ -252,11 +244,12 @@ private fun MenuCard(
                 modifier = Modifier.size(32.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) {
+            Column {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = description,
