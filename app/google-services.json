@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "602177739597",
+    "project_id": "sanznan",
+    "storage_bucket": "sanznan.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602177739597:android:ef0edfff8ee1eddf8e7504",
+        "android_client_info": {
+          "package_name": "com.example.sanznan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvG9qP3NJiD-AKe9uEb2W8Jw-AwqCcuSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
