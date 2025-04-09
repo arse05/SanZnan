@@ -97,12 +97,8 @@ class MainActivity : ComponentActivity() {
 
                         composable("admin_panel") {
                             AdminPanelScreen(
-                                onChangeAccountClick = {
-                                    isAuthenticated = false
-                                    userRole = null
-                                    navController.navigate("auth") {
-                                        popUpTo("main") { inclusive = true }
-                                    }
+                                onBackClick = {
+                                    navController.navigateUp()
                                 }
                             )
                         }

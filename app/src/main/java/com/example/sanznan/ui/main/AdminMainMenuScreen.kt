@@ -3,6 +3,7 @@ package com.example.sanznan.ui.main
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,25 +14,26 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminMainMenuScreen(
-    onChangeAccountClick: () -> Unit = {}
+    onBackClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Панель администратора") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                actions = {
-                    IconButton(onClick = onChangeAccountClick) {
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
                         Icon(
-                            imageVector = Icons.Default.ExitToApp,
-                            contentDescription = "Сменить пользователя",
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Назад",
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
+                )
             )
         }
     ) { paddingValues ->
@@ -113,20 +115,6 @@ fun AdminMainMenuScreen(
             }
             
             Spacer(modifier = Modifier.weight(1f))
-            
-            // Кнопка смены пользователя
-            OutlinedButton(
-                onClick = onChangeAccountClick,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ExitToApp,
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Сменить пользователя")
-            }
         }
     }
 } 
