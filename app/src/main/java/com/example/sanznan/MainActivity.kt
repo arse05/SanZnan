@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.example.sanznan.ui.auth.AuthNavigation
 import com.example.sanznan.ui.auth.AuthViewModel
 import com.example.sanznan.ui.admin.AdminMainMenuScreen
-import com.example.sanznan.ui.main.AdminMainMenuScreen as AdminPanelScreen
+import com.example.sanznan.ui.admin.AdminServicesScreen
 import com.example.sanznan.ui.main.MainMenuScreen
 import com.example.sanznan.ui.profile.ProfileScreen
 import com.example.sanznan.ui.services.ServicesScreen
@@ -28,6 +28,8 @@ import com.example.sanznan.ui.food.LunchMenuScreen
 import com.example.sanznan.ui.food.DinnerMenuScreen
 import com.example.sanznan.ui.events.EventsNavigation
 import com.example.sanznan.ui.theme.SanZnanTheme
+import com.example.sanznan.ui.admin.AdminPanelScreen
+import com.example.sanznan.ui.admin.AdminFoodScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +63,7 @@ class MainActivity : ComponentActivity() {
 
                         composable("main") {
                             if (userRole == "admin") {
-                                AdminMainMenuScreen(
+                                com.example.sanznan.ui.admin.AdminMainMenuScreen(
                                     onPersonalAccountClick = {
                                         navController.navigate("profile")
                                     },
@@ -99,6 +101,55 @@ class MainActivity : ComponentActivity() {
                             AdminPanelScreen(
                                 onBackClick = {
                                     navController.navigateUp()
+                                },
+                                onServicesClick = {
+                                    navController.navigate("admin_services")
+                                },
+                                onUsersClick = {
+                                    // TODO: Добавить навигацию к управлению пользователями
+                                },
+                                onSettingsClick = {
+                                    // TODO: Добавить навигацию к настройкам
+                                },
+                                onChangeAccountClick = {
+                                    isAuthenticated = false
+                                    userRole = null
+                                    navController.navigate("auth") {
+                                        popUpTo("main") { inclusive = true }
+                                    }
+                                }
+                            )
+                        }
+                        
+                        composable("admin_services") {
+                            AdminServicesScreen(
+                                onBackClick = {
+                                    navController.navigateUp()
+                                },
+                                onAddServiceClick = {
+                                    // TODO: Добавить навигацию к добавлению услуги
+                                },
+                                onEditServiceClick = { serviceId ->
+                                    // Если ID услуги "1" (Питание), переходим к управлению питанием
+                                    if (serviceId == "1") {
+                                        navController.navigate("admin_food")
+                                    } else {
+                                        // TODO: Добавить навигацию к редактированию услуги
+                                    }
+                                },
+                                onDeleteServiceClick = { serviceId ->
+                                    // TODO: Добавить логику удаления услуги
+                                }
+                            )
+                        }
+
+                        composable("admin_food") {
+                            AdminFoodScreen(
+                                onBackClick = {
+                                    navController.navigateUp()
+                                },
+                                onAddDishClick = {
+                                    // TODO: Добавить навигацию к добавлению блюда
                                 }
                             )
                         }
